@@ -1,0 +1,7 @@
+# 应用名称
+server:
+  port: 9999
+spring:
+  application:
+    name: websocket
+
