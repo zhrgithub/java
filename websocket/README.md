@@ -9,6 +9,6 @@
  
  发送消息：
      ws://localhost:9999/imserver/{userId}
-     请求参数：{"":"","":""}
+     请求参数：{"toUserId":"{userId}","message":"{msg}"}
 
 
