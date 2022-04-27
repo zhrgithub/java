@@ -1,0 +1,7 @@
+# 应用名称
+spring:
+  application:
+    name: SpringStudy
+server:
+  port: 8080
+
