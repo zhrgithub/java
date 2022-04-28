@@ -1,0 +1,10 @@
+# 应用名称
+spring:
+  application:
+    name: websocketOfNetty
+# Netty Server 端口
+netty:
+  port: 8088
+# web服务器的端口号
+server:
+  port: 8080
