@@ -15,7 +15,8 @@ URL：ws://127.0.0.1:8088/ws
 
 群发：
 URL：ws://127.0.0.1:8088/ws
-{
-"fromUser":20,
-"content":"hi world!"
-}
+请求参数：
+        {
+        "fromUser":20,
+        "content":"hi world!"
+        }
