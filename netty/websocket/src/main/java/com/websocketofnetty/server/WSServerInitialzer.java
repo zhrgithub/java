@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Component
 public class WSServerInitialzer extends ChannelInitializer<SocketChannel> {
-  /** 心跳超时时间 */
+  /** 超过180秒未发消息，那么就断开 */
   private static final Integer READ_TIMEOUT_SECONDS = 3 * 60;
 
   @Autowired
