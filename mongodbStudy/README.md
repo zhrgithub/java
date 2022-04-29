@@ -3,11 +3,12 @@
 # 延伸阅读
 接口文档：
 
-根据名字获取用户信息： 
+根据名字获取用户信息
 
-  URL：http://localhost:8080/user/get_user
-  请求类型：GET
-  请求参数：{"name":"zhangsan"}
+    URL：http://localhost:8080/user/get_user
+    请求类型：GET
+    请求参数：{"name":"zhangsan"}
+
 
 根据名字更新用户信息：
 
