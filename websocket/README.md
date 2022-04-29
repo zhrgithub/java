@@ -6,8 +6,14 @@
 
 接口的api
 
-建立连接： ws://localhost:9999/imserver/{userId}
+建立连接：
 
-发送消息： ws://localhost:9999/imserver/{userId} 请求参数：{"toUserId":"{userId}","message":"{msg}"}
+`ws://localhost:9999/imserver/{userId}`
+
+发送消息： 
+
+`ws://localhost:9999/imserver/{userId}`
+
+`请求参数：{"toUserId":"{userId}","message":"{msg}"}`
 
 
