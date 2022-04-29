@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
   @Autowired
-  private MongoTemplate mongoTemple;
+  private MongoTemplate mongoTemplate;
 
   Logger logger = LoggerFactory.getLogger(UserService.class);
 
@@ -30,13 +30,13 @@ public class UserService {
   public User getUserByName(String name) {
     // 查询数据先从MongoDB中查询
     Query query = new Query(Criteria.where("name").is(name));
-    User user = mongoTemple.findOne(query, User.class);
+    User user = mongoTemplate.findOne(query, User.class);
     // 缓存中没该条记录
     if (user == null) {
       logger.info("从数据库查询数据");
       // 假设news1从数据库中查询
       user = new User(name,  "男", "180");
-      mongoTemple.insert(user, "user");
+      mongoTemplate.insert(user, "user");
       logger.info("数据插入到MongoDB成功");
     } else {
       logger.info("数据从缓存访问成功");
@@ -49,7 +49,7 @@ public class UserService {
    */
   public void deleteUser(String name) {
     Query query = new Query(Criteria.where("name").is(name));
-    mongoTemple.remove(query,"user");
+    mongoTemplate.remove(query,"user");
     logger.info("数据从缓存删除成功");
   }
 
@@ -64,7 +64,7 @@ public class UserService {
     update.set("name",name);
     update.set("sex","女");
     update.set("tall","170");
-    mongoTemple.upsert(query,update,"user");
+    mongoTemplate.upsert(query,update,"user");
   }
 
 
