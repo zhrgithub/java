@@ -35,6 +35,35 @@ mongo-starter
  主要用来存储一些不确定性的数据对象、海量数据，例如：用户对象信息字段
 
 #主从配置：
+对于主从配置，相对于其它数据库而言，MongoDB的配置非常简单，只需要配置参数文件即可。
+
+主节点需要配置：master=true参数；
+
+从节点需要配置：slave=true参数和source参数，source参数指定master数据库的IP及端口；
+
+如果启用了用户登录验证auth=true，那么还需要配置KeyFile参数，主从才能正常同步；
+
+从节点的autoresync=true是一个可选参数。主从同步的本质是主节点将重做日志(存放在local数据库下的oplog.$main集合中)传输到从节点，
+从节点再次根据日志执行一遍。但是oplog.$main是一个上限集合，如果主节点的日志还未拷贝到从节点就发生了日志覆盖，此时管理员必须手动重新搭建复制环境，
+假如使用了autoresync=true参数，当主从不同步时，从库将在10分钟内自动尝试重新同步一次。
+
+oplogSize参数可以用来指定oplog.$main集合的最大空间尺寸，如果未指定mongod将在启动时分配5%的可用磁盘空间给oplog。
+
+当启用用户身份认证时，主从节点需要配置keyfil文件以便于主从节点可以正常通信
+openssl rand -base64 745 > /mongo/mongodb-keyfile
+chmod 600 /mongo/mongodb-keyfile
+
+在创建完keyfile并在配置文件中加入参数后，启动MongoDB，发现无法启动：
+mongod -f /mongo/mongodb.conf
+
+查看MongoDB错误日志，报错如下：
+[root@mongo1 log]# tail -f mongod.log
+2020-06-18T21:20:13.900+0800 invalid char in key file /mongo/mon-keyfile: =
+打开keyfile，发现在文件末尾有2个“=”，删除2个等号之后，MongoDB启动正常。需要留意，该操作改变了feyfile的内容，需要重新同步到其它节点。
+
+
+
+
 #索引类型:
 #性能监控:
 #GEO索引算法:
