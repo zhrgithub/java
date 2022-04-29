@@ -1,0 +1,12 @@
+# 应用名称
+spring:
+  application:
+    name: mongodbStudy
+  data:
+    mongodb:
+      host: 127.0.0.1
+      port: 27017
+      database: mongoStudy
+#web端口号
+server:
+  port: 8080
