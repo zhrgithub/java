@@ -1,6 +1,10 @@
 # 工程简介
 以springboot为基础创建mongoTemplate的增删改查demo
 # 延伸阅读
+首先要配置你的MongoDB副本集群，服务器要开启对应的四个端口号27017、27021、27022、27023
+
+可以根据该文档一步一步配置：[https://blog.csdn.net/qq_39671996/article/details/124520409](https://blog.csdn.net/qq_39671996/article/details/124520409)
+
 接口文档：
 
 根据名字获取用户信息
