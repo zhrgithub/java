@@ -4,9 +4,7 @@ spring:
     name: mongodbStudy
   data:
     mongodb:
-      host: 127.0.0.1
-      port: 27017
-      database: user
+      uri: mongodb://119.91.94.36:27021,119.91.94.36:27022,119.91.94.36:27023/user?slaveOk=true&replicaSet=replSet1&readPreference=secondaryPreferred&connectTimeoutMS=300000
 #web端口号
 server:
   port: 8080
