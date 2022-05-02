@@ -1,4 +1,4 @@
 # 工程简介
-
+用于学习和研究Redis事务
 # 延伸阅读
-
+RedisTemplate操作事务不能理所当然地像原生API那么写，其实RedisTemplate的事务需要自己实现一个SessionCallBack来做事务
