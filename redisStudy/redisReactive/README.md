@@ -1,0 +1,8 @@
+# 工程简介
+用于学习Redis响应式编程的研究
+# 延伸阅读
+ReactiveRedisTemplate与RedisTemplate使用类似，但它提供的是异步的，响应式Redis交互方式。
+这里再强调一下，响应式编程是异步的，ReactiveRedisTemplate发送Redis请求后不会阻塞线程，当前线程可以去执行其他任务。
+等到Redis响应数据返回后，ReactiveRedisTemplate再调度线程处理响应数据。
+响应式编程可以通过优雅的方式实现异步调用以及处理异步结果，正是它的最大的意义。
+

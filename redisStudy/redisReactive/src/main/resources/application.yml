@@ -1,0 +1,12 @@
+# 应用名称
+spring:
+  application:
+    name: redisReactive
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    timeout: 5000
+server:
+  port: 8080
+
+
