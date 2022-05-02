@@ -7,3 +7,6 @@
 哨兵节点投票超过一半为主节点
    哨兵节点和Redis节点是两回事，哨兵节点负责监控Redis节点有没有存活和选举，Redis节点负责处理业务数据
 
+集群配置教程
+https://blog.csdn.net/qq_39671996/article/details/124549880
+
