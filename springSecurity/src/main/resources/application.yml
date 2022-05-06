@@ -1,0 +1,6 @@
+server:
+  port: 8080
+jwt:
+  secret: secret
+  expiration: 7200000
+  token: Authorization
