@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: gmall-user-two
+server:
+  port: 8090
+dubbo:
+  application:
+    name: user-two-service-provider
+  registry:
+    address: 127.0.0.1:2181
+    protocol: zookeeper
+  protocol:
+    name: dubbo
+    port: -1
+  monitor:
+    protocol: registry

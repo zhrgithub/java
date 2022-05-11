@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: gmall-order
+server:
+  port: 8089
+dubbo:
+  application:
+    #声明当前服务名称，唯一
+    name: order-service-consumer
+  #声明当前注册中心是zookeeper
+  registry:
+    protocol: zookeeper
+    address: 127.0.0.1:2181
+  #声明这是dubbo协议，并且端口自增（-1）
+  protocol:
+    name: dubbo
+    port: -1
+  #声明自动查找监控器，即使监控器挂掉也无所谓
+  monitor:
+    protocol: registry
