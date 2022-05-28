@@ -11,6 +11,9 @@ dubbo:
   registry:
     address: 127.0.0.1:2181
     protocol: zookeeper
+  #生成随机的token，防止恶意用户绕过注册中心调用服务接口
+  provider:
+    token: true
   #声明这是dubbo协议，并且端口自增（-1）
   protocol:
     name: dubbo
@@ -18,3 +21,4 @@ dubbo:
   #声明自动查找监控器，即使监控器挂掉也无所谓
   monitor:
     protocol: registry
+

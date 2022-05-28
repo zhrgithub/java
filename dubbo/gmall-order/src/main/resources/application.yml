@@ -11,6 +11,7 @@ dubbo:
   registry:
     protocol: zookeeper
     address: 127.0.0.1:2181
+
   #声明这是dubbo协议，并且端口自增（-1）
   protocol:
     name: dubbo
@@ -18,3 +19,4 @@ dubbo:
   #声明自动查找监控器，即使监控器挂掉也无所谓
   monitor:
     protocol: registry
+
