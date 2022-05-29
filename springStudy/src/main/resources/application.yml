@@ -2,6 +2,8 @@
 spring:
   application:
     name: SpringStudy
+  redis:
+    port: 6380
+    host: localhost
 server:
   port: 8080
-
