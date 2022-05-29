@@ -41,7 +41,7 @@ public class UserAccessAop {
               (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
       String ip = requestAttributes.getRequest().getRemoteHost();
 
-      //判断用户的ip是否是属于国内
+      //判断用户的ip是否是属于国内，如果不是国内ip就永久锁定，如果每秒请求五次，也被永久锁定ip
       //TODO
       //可以将用户的ip和每秒请求的次数放入Redis中，如果当前用户每秒请求次数超过5次，请求频繁，请稍后重试！！；
       if(redisTemplate.hasKey(ip)){
