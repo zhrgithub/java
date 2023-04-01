@@ -1,4 +1,4 @@
-package com.websocketofnetty.server;
+package com.spaceobj.websoket.server;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
