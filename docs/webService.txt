@@ -1,0 +1,50 @@
+webService
+1.使用方法：两种
+	1)SOAP、XML：跨编程语言和跨操作系统平台的调用技术
+		WSDL：调用说明书
+			service:服务视图，WebService的服务端点
+			binding:Web Services的通信协议，还描述web Services的方法、输入、输出。
+			portType:描述了WebService可执行的操作，通过binding指向portType
+			message:描述了服务中发布的方法，包括参数，返回值等。
+			types:定义了WebService中的数据类型
+		SOAP协议组成：SOAP协议=HTTP协议+XML数据格式
+	2)HTTP、json
+2.通过jdk来发布webservice服务
+    1.创建接口
+    2.创建实现类+@WebService
+    3.发布服务
+    4.Endpoint.publish("http://localhost:8080/服务接口名称",实现类的实例);
+3.通过变成来访问服务
+	1.在浏览器输入"http://localhost:8080/服务接口名称?wsdl"查看调用说明书；
+	2.按照服务的说明书来编程,查看关键节点：
+		<service name="WeacherServiceImplService">创建WeacherServiceImplService对象
+		实现类：<portType name="WeatherServiceImpl"> WeatherServiceImpl实现类的名称
+		方法：在<portType>标签下面有<operation name="query">这里的query就是方法名
+3.生成客户端代码：通过JDK的命令实现(wsimport)，
+		1)第一种方法远程地址：wsimport -s . http://localhost:8080/weacher?wsdl
+		2)第二种方法XML文件：wsimport -s . 文件路径（文件路径后面不需要添加？wsdl）
+		注意：要指定生成客户端代码所在的包
+4.客户端调用第一种方式
+	1)创建服务视图（视图是从service标签的name属性获取） 
+		ObjImplService objImplService = new ObjImplService();
+	2)获取服务实现类（实现类从portType的name属性获取）
+		ObjImpl  objImpl= objImplService.getPort(ObjImpl.class);
+	3)调用方法（从portType的opration标签获取）
+		String result = objImpl.queryWeacher("深圳");
+	4)输出服务端返回的结果
+	   System.out.println(result);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

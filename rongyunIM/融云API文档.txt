@@ -1,0 +1,162 @@
+1、获取token
+  接口名：http://localhost:9090/rongYunServer/rongyun/getToken
+  请求类型：post
+  请求数据格式：
+      {
+        "sendUser":{
+        "senderId":"user005",
+        "senderName":"钱七",
+        "senderAvatar":"https://img2.baidu.com/it/u=3643648615,1379429149&fm=26&fmt=auto"
+       }
+     }
+  响应数据格式：
+	  {
+	    "code": 1,
+	    "message": "当前请求操作成功",
+	    "data": {
+	        "token": "ksZK9yg8SIzf0daEpUcPBmKWLUlGzmPq8xDRdb7CMuI=@2nwq.cn.rongnav.com;2nwq.cn.rongcfg.com"
+	    }
+	  }
+
+2、获取用户新消息列表
+  接口名：http://localhost:9090/rongYunServer/newinfo/findList
+  请求类型：post
+  响应数据格式：
+	  {
+		    "code": 1,
+		    "message": "当前请求操作成功",
+		    "data": {
+		        "newInfoList": [
+		            {
+		                "id": "c5014ac3d7f700c693a6195b9b1bf36f",
+		                "clientId": "user003",
+		                "nickName": "张三",
+		                "avatar": "https://img1.baidu.com/it/u=1316800099,2051258115&fm=26&fmt=auto",
+		                "updateTime": "2021-11-29 18:37:31",
+		                "status": "0"
+		            },
+		            {
+		                "id": "cdsc32312313233",
+		                "clientId": "user004",
+		                "nickName": "李四",
+		                "avatar": "https://img1.baidu.com/it/u=1316800099,2051258115&fm=26&fmt=auto",
+		                "updateTime": "2021-11-29 17:14:26",
+		                "status": "0"
+		            }
+		        ]
+		    }
+		}
+3、新增、删除、修改用户信息
+  接口名：http://localhost:9090/rongYunServer/rongyun/addOrUpdateOrDel
+  请求类型：post
+  请求数据格式：
+      {
+        "status":0表示新增，1表示删除，2表示修改
+        "user":{
+	        "senderId":"user005",
+	        "senderName":"钱七",
+	        "senderAvatar":"https://img2.baidu.com/it/u=3643648615,1379429149&fm=26&fmt=auto"
+	        "receiverId":"receiverName",
+	        "receiverName":"receiverName",
+	        "receiverAvatar":"receiverAvatar"
+       }
+     }
+  响应数据格式：
+	 {
+	    "code": 1,
+	    "message": "当前请求操作成功",
+	    "data": {
+	        "message": 1,
+	        "token": "ksZK9yg8SIzf0daEpUcPBmKWLUlGzmPq7VwZtQII9os=@2nwq.cn.rongnav.com;2nwq.cn.rongcfg.com"
+	    }
+	}
+4、根据用户ID获取用户在融云的基本信息
+   
+  接口名：http://localhost:9090/rongYunServer/rongyun/find
+  请求类型：post
+  请求数据格式：
+      {
+        "id":"用户的ID"
+     }
+  响应数据格式：
+	 {
+    "code": 1,{}
+    "message": "当前请求操作成功",
+    "data": {
+        "user": {
+            "senderId": "user003",
+            "senderName": "张三",
+            "senderAvatar": "https://img0.baidu.com/it/u=3005628903,3936844619&fm=26&fmt=auto",
+            "receiverId": "user004",
+            "receiverName": "李四",
+            "receiverAvatar": "https://img0.baidu.com/it/u=3005628903,3936844619&fm=26&fmt=auto",
+            "token": "ksZK9yg8SIx61HVinzOzbGKWLUlGzmPqsxxcveRd1H4=@2nwq.cn.rongnav.com;2nwq.cn.rongcfg.com"
+        }
+    }
+}
+
+5、消息新增或者更新消息状态
+
+  接口名：http://localhost:9090/rongYunServer/newinfo/addOrUpdate
+  请求类型：post
+  请求数据格式：
+      {
+	    "newInfo":{
+	        "clientId":"user003",//必填
+	        "status":0,//必填
+	        "avatar":"",
+	        "nickName":""
+	    }
+	}
+  响应数据格式：
+    {
+	    "code": 1,
+	    "message": "当前请求操作成功",
+	    "data": {
+	        "status": 1
+	    }
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,5 @@
+1.shell客户端设置watcher
+   1.1创建节点监听：create path watch
+   1.2设置节点变动监听：get path watch
+   1.3通过另一个客户端更改节点数据：set path watch
+   1.4此时设置监听的节点收到通知

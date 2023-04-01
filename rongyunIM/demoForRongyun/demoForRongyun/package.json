@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "@rongcloud/engine": "^4.4.0",
+    "@rongcloud/imlib-uni": "^5.1.3-release.2",
+    "@rongcloud/imlib-v4": "^4.4.0",
+    "axios": "^0.24.0",
+    "sass": "^1.43.4",
+    "sass-loader": "^12.3.0",
+    "scss": "^0.2.4",
+    "vuex": "^3.6.2"
+  }
+}

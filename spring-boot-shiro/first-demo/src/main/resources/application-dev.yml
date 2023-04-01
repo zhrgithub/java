@@ -1,0 +1,42 @@
+server:
+  port: 88
+
+
+
+# 图片路径
+picPath: D:/xxx/xxx/
+
+aliyun:
+  aaa: csdcsac
+  bbb: bbbbb
+  ccc: ccccc
+
+# mybatis配置：
+# 扫描mapper.xml文件  classpath表示resources
+# 扫描pojo(配置字段别名的包)里面的文件   type-aliases-package
+# 开启驼峰映射配置   map-underscore-to-camel-case: true
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.qf.firstdemo.pojo
+  configuration:
+    map-underscore-to-camel-case: true
+
+# MySQL的配置
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/air?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
+    username: air
+    password: 123456
+    filters: wall,mergeStat
+  mvc:
+    view:
+      prefix:  /WEB-INF/
+      suffix:  .jsp
+
+
+# 打印sql日志
+logging:
+  level:
+    com.qf.firstdemo.mapper: DEBUG
+

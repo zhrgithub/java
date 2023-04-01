@@ -1,0 +1,63 @@
+1.Zookeeper_java_API的简介
+    1.1）org.apache.zookeeper.Zookeeper
+    	Zookeeper是在Java客户端主类，负责建立与zookeeper集群的会话，并提供方法进行操作。
+    1.2）org.apache.zookeeper.Watcher
+        Watcher接口表示一个标准的事件处理器，其定义了事件通知相关的逻辑，包含KeeperState和EventType两个枚举类，分别代表了通知状态和事件类型，同时定义了事件的回调方法：process（WatcheredEvent event）
+        process方法是watcher接口中的一个回调方法，当zookeeper向客户端发送一个watcher事件通知时，客户端就会对相应的process方法进行回调，从而实现对事件的处理。
+2.基本使用
+   2.1）建立maven项目，引入依赖
+        <dependency>
+             <groupId>org.apache.zookeeper</groupId>
+             <artifactId>zookeeper</artifactId>
+             <versiion>3.4.9</version>
+        </dependency>
+       //初始化zookeeper实例（zk地址、会话超时时间、与系统默认一致、watcher）
+       Zookeeper zk = new Zookeeper("node-1:2181,node-2:2181",30000,new Watcher(){
+                @override
+                public void process(WatcheEvent event){
+                   System.out.printLn("事件类型为："+event.getType());
+                   System.out.printLn("事件发生的路径："+event.getPath());
+                   System.out.printLn("通知状态为："+event.getState());
+                }
+       })
+
+       zk.create("/myGirls","性感的".getBytes("UTF-8"),Ids.OPEN_ACL_UNSAFE,CreateMode.PRESISTENT);
+       //对节点/myGirls进行监听，true表示开启监听，null表示不需要sate状态
+       zk.getData("/myGirls",true,null);
+       zk.close();
+3.更多操作示例
+   //创建一个目录节点
+   zk.create("/testRootPath","testRootData".getBytes(),Ids.OPEN_ACL_UNSAFE,CreateMode.PRESISTENT);
+   //创建一个子目录节点
+   zk.create("/testRootPath/testChildPathOne","testChildPathOne".getBytes(),Ids.OPEN_ACL_UNSAFE,CreateMode.PRESISTENT);
+   System.out.printLn(new String(zk.getData("/testRootPath",false,null)));
+   //取出子目录节点列表
+   System.out.printLn(zk.getChildren("/testRootPath",true));
+   //修改子目录节点数据，"modifyChildDataOne".getBytes()表示修改的内容，最后一个参数为-1表示交给系统来维护
+   注意：它只能触发一次
+   	zk.setData("/testRootPath/testChildPathOne","modifyChildDataOne".getBytes(),-1);
+   	System.out.printLn("目录节点状态：["+zk.exists("/testRootPath",true)+"]");
+   	//创建另外一个子目录节点
+   	zk.create("/testRootPath/testChildPathTwo","testChildDataTwo".getBytes(),Ids.OPEN_ACL_UNSAFE,CreateMode.PRESISTENT)
+    System.out.printLn(new String(zk.getData("/testRootPath/testChildPathTwo",true,null)));
+    //删除子目录节点
+    zk.delete("/testRootPath/testChildTwo",-1);
+    zk.delete("/testRootPath/testChildOne",-1);
+    //删除父节点
+    zk.delete("/testRootPath",-1);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

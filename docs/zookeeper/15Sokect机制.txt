@@ -1,0 +1,103 @@
+1.概述：
+	Socket,又称为套接字，用于描述IP地址和端口。应用程序通常通过socket向网络发出请求或者应答网络请求。Socket就是网络编程提供的一种机制：
+		通信两端都有socket；
+		网络通信其实就是socket之间的通信；
+		数据在两个socket之间通过io传输。
+		网络编程也称作为socket编程，套接字编程。
+		Socket通信是Client/Server模型。
+2.基于udp协议的Socket通信
+    核心类：DatagramSocket
+    发送端：
+    	//创建发送端Socket服务对象
+        DatagramSocket dSocket = new DatagramSocket();
+
+        //创建数据，打包数据
+        String message = "hello,are u udp?";
+        byte[] bys = message.getBytes();
+ 		int length = bys.length;
+ 		InetAddress address = InetAddress.getByName("localhost");
+        //InetAddress address = InetAddress.getLocalHost();
+ 		int port = 12621;
+ 		DatagramPacket dPacket =new DatagramPacket(bys,length,address,localhost);
+
+ 		//发送数据包
+ 		dSocket.send(dPacket);
+
+ 		//资源释放
+ 		dSocket.close();
+
+ 	接收端：
+ 	   //创建接收端Socket服务对象
+ 	    DatagramSocket server = new DatagramSocket(12621);
+ 	    //接收数据
+ 	    //创建接收数据的数据包（数据接收的容器）
+ 	    byte[] bys = new byte[1024];
+ 	    DatagramPacket packet = new DatagramPacket(bys,bys.length);
+
+ 	    //接收数据
+ 	    server.receive(packet);
+
+ 	    //针对数据包进行解析
+ 	    String host = packet.getAddress().getHostAddress();
+ 	    byte[] data = packet.getData();
+
+ 	    System.out.Println("接收到了来自"+host+"信息"+new String(data))
+
+
+ 	    //释放资源
+ 	    server.close;
+
+3.基于TCP协议的socket通信
+     
+     服务端：
+          核心API ServerSoket
+          流程：
+             创建ServerSocket服务，然后绑定在服务器的IP地址和端口
+             监听连接请求
+             接受请求，建立TCP连接
+             获取输入流读取数据，并显示
+             释放资源
+
+             //建立服务端socket服务，并且监听一个端口
+             ServerSocket ss = new ServerSocket(13131);
+
+             //监听连接,是一个阻塞方法，有请求过来，建立连接，返回与之对应的socket来通信
+             Socket s = ss.accept();
+
+             //获取输入流，读取数据
+             InputStream inputStream = s.getInputStream();
+             byte[] bys = new byte[1024];
+             int len = inputStream.read(bys);
+             
+             System.out.printLn(new String(bys,0,len));
+
+             //关闭客户端
+             s.close();
+
+             //关闭服务端，一般服务端不会关闭
+             ss.close();
+
+    客户端：
+          核心API:Socket
+          流程：创建客户端socket对象
+                向服务端	请求建立tcp连接
+                从tcp连接中获取输出流，写数据
+                释放资源
+
+                //创建客户端的socket服务，指定目的主机和端口
+                Socket s = new Socket("127.0.0.1",13131);
+                //通过socket获取输出流，写数据
+                OutputStream outputStream = s.getOutputStream();
+                outputStream.write("hello,this is Tcp?".getBytes());
+
+                //释放资源
+                s.close();
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,26 @@
+一、简介
+	1.Quartz是要做定时任务的调度，设置好触发时间规则，以及相应的事务（job）即可。
+二、Quartz的使用
+	1.导入依赖
+       <dependencies>
+           //Quartz任务调度
+           <dependencie>
+ 				<groupId>org.quartz-scheduler</groupId>
+ 				<artifactId>quartz</artifactId>
+ 				<version>2.2.3</version>
+           </dependencie>
+       </dependencies>
+    2.定义job
+    
+
+
+
+
+
+
+
+
+
+
+
+

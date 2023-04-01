@@ -1,0 +1,64 @@
+0.远程连接工具SecureCRT
+1.zookeeper集群搭建一般指的是zookeeper分布式安装。通常是2n+1台servers组成（一般为奇数）。目的是为了保证leader的选举（基于paxos算法的实现）能够得到多数的支持。
+2.过程：
+        leader+follower模式：
+					2.1）安装jdk
+					2.2)配置主机名称到IP地址映射配置
+					2.3）修改zookeeper配置文件
+					2.4）远程复制分发安装文件
+					2.5）设置myid
+					2.6)启动zookeeper集群
+		observer模式：
+		           2.1）在对应节点配置文件下面添加peerType = observer
+		           2.2)必须在配置文件中指定那些节点被指定为observer，例如：
+		                                                     server.1:localhost:2181:3181:observer
+3.卸载openjdk
+  3.1)查看安装了那些jdk包：rpm -qa|grep java
+  3.2)卸载掉对应的包（忽略掉Java依赖的包（nodeps））： rpm -e --nodeps xxx
+4.创建目录：mkdir -p xxx
+5.配置环境变量：Linux系统中一般是/etc/profile,按住G+o跳转到最后一行，然后添加对应的配置，保存，
+   退出后重新加载配置文件：source /etc/profile
+6.同步集群的互联网时间  
+           手动设置：data -s "x年x月x日 x时x分x秒"
+           网络设置：https://blog.csdn.net/weixin_41615494/article/details/79530717
+7.给文件重命名 mv oldName newName
+8.集群安装前准备
+	8.1）安装前准备好jdk
+	8.2)检测集群时间是否同步；检测防火墙是否关闭；检测主机、IP映射有没有配置
+	8.3）下载安装包、解压
+			tar -zxvf zookeeper-3.4.5.tar.gz
+			mv zookeeper-3.4.5 zookeeper
+	8.4）修改环境变量（注意：3台zookeeper都需要修改）
+		 vi /etc/profile
+		 export ZOOKEEPER_HOME=/home/hadoop/zookeeper
+		 export PATH=$PATH:$ZOOKEEPER_HOME/bin
+		 source /etc/profile
+	8.5）修改zookeeper配置文件
+		cd zookeeper/conf
+		cp zoo_sample.cfg zoo.cfg
+	    vi zoo.cfg
+	    添加内容：
+	    dataDir=/root/apps/zookeeper/zkdata  ##（zookeeper存储的路径）
+	    server.1/mini1:2888:3888  ##(心跳端口、选举端口)
+	    server.2/mini2:2888:3888  ##（mini2表示主机名称）
+	    server.3/mini3:2888:3888
+	8.6)创建文件夹：
+		cd /home/hadoop/zookeeper/
+		mkdir zkdata
+		在data文件夹下新建myid文件，myid的文件内容为：
+		cd zkdata
+		echo 1 >myid   ##（在这个文件中写如对应的编号，如果是第一个服务器就写 1）
+	8.7)分发安装包到其它机器
+		scp -r /root/apps root@mini2:/root/  #（把当前路径下的apps发送到mini2服务器的root下）
+		scp -r /root/apps root@mini3:/root/
+	8.8)修改其它机器的配置文件
+		修改myid文件
+		到mi	ni2上：修改myid为2
+		到mi	ni3上：修改myid为3
+	8.9）启动（每台机器）
+	    /export/server/zookeeper/bin/zkServer.sh start
+	    查看启动状态：可以看到角色属性
+	        /export/server/zookeeper/bin/zkServer.sh status
+
+
+

@@ -1,0 +1,7 @@
+server:
+  port: 8081
+
+
+  servlet:
+    # 项目路径
+    context-path: /boot

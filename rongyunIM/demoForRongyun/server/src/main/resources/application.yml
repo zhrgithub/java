@@ -1,0 +1,13 @@
+server:
+  port: 9090
+  servlet:
+    context-path: /rongYunServer
+  max-http-header-size: 10240
+# Mysql数据库
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://1.14.253.244:3306/rongyun?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
+    username: root
+    password: 123snyt
+    filters: wall,mergeStat

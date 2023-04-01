@@ -1,0 +1,22 @@
+springMVC的复习
+1.配置环境
+		1）在resource中配置springmvc.xml文件，在该文件中配置视图解析器，启动注解<mvc:annotation-driven>；
+		2）写controller层，在controller中添加注解@controller
+		3)在web.xml中配置dispatchServlet
+		4)在web.xml的servlet中配置初始化springmvc.xml文件
+		5）在web.xml的servlet中配置统一拦截
+2.一些注解的使用
+	1）@requestMapping:主要用于映射控制器，url映射到对应的接口
+	2）@RequestBody 注解实现接收 http 请求的 json 数据，将 json 数据转换为 java 对象
+	3) @ResponseBody 注解实现将 controller 方法返回对象转化为 json 响应给客户。
+	4) @RequestParam 可以设置规定的请求参数
+	5) @PathVariable 设置占位符获取参数值，配合RequestMapping实现，RequestMapping("url/{sid}"),方法的参数url(@PathVariable(name="sid") String id)
+	6) @RequestHeader 主要是接收html中的请求头，也是在方法的参数中添加注解
+	7) @CookieValue  写在方法参数中，(@CookieValue(value="JSSESSIONID") String cookieValue)
+	8) @ModelAttribute 写在方法体中，或者放到方法名上面，特点是在执行接口之前先执行被该注解声明的方法。可以在该方法中提前设置一些参数，对象等,被该注解声明的方法可以有返回参数也可以没有返回参数。
+	9) @SessionAttributes  该注解必须声明在类上面：@SessionAttributes(value={"key1","key2"}),通过这种方式实现session共享；可以通过ModelMap类来根据session中的key获取到session中的值：ModelMap.get("key")；可以通过SessionStatus来删除Session中的缓存：SessionStatus.setComplete()。
+3.Servlet原生API
+	1)通过在表现层的方法参数中写HttpServletRequest来实现
+	2)通过在表现层的方法参数中写HttpServletRespons来实现
+4.启动的步骤：前端控制器，映射控制器，方法名，方法适配器，modandview,视图解析器，客户端	
+5.restFull:通常情况下，请求接口名称相同，但是请求类型不同PUT\Delete\POST\GET...

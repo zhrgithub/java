@@ -1,0 +1,22 @@
+server:
+ port: 88
+ max-http-header-size: 10240
+
+# Spring配置
+spring:
+   # MQTT
+ mqtt:
+   # 服务器连接地址，如果有多个，用逗号隔开
+ host: tcp://127.0.0.1:1883
+   # 连接服务器默认客户端ID
+ clientId: mqttx_d0d972c6
+   # 默认的消息推送主题，实际可在调用接口时指定
+ topic: mqtt_topic_001,mqtt_topic_002,mqtt_topic_003
+   # 用户名
+ username: admin
+   # 密码
+ password: admin
+   # 连接超时
+ timeout: 30
+   # 心跳
+ keepalive: 30

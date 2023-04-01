@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+</head>
+<body>
+  <h3 th:text="${name}"></h3>
+ <hr/>
+  <div shiro:hasPermission="user:add">
+      转到用户新增页面<a href="add">新增</a><br/>
+  </div>
+
+  <div shiro:hasPermission="user:edit">
+      转到用户编辑页面<a href="edit">编辑</a>
+  </div>
+
+</body>
+</html>

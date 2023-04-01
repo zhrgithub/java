@@ -1,0 +1,87 @@
+1.存储结构：数据库--》集合--》文档
+2.创建数据库：
+	mongod --dbpath 路径  //打开或者新建一个数据库
+	默认端口号：27017
+3.打开数据库 
+	1)打开黑窗口输入mongo，然后回车
+	2)直接点击文件夹中的exe文件也是可以的。
+4.mongo
+    //新建一个数据库,如果创建的数据库存在的话，使用use就会进入到数据库中
+    1)use dbName 
+    //查看所有库
+	2)show dbs
+	//查看当前库所有集合
+	3)show collections
+	//新增一个集合,在名为collectionName的集合中插入一条文档，如果集合不存在，则新建该集合。
+	4)db.collectionName.insert(obj)
+	  注意：obj--》{"key1":"value1","key2":"value2"}
+	//查询名为collectionName集合的所有文档
+	5)db.collectionName.find()
+	//查询k的值为v的文档
+	6)db.collectionName.find({k:v})
+	//查询k1的值为v1 且 k2的值为v2的文档
+	7)db.collectionName.find({k1:v1},{k2,v2})
+	//查询k1的值为v1 或者 k2的值为v2的文档
+	8)db.collectionName.find({$or:[{k1:v1},{k2,v2}]})
+	//查询k的值大于v的文档
+	9)db.collectionName.find({k:{$gt:v}})
+	//查询k的值小于v的文档
+	10)db.collectionName.find({k:{$lt:v}})
+	//查询大于v1小于v2的文档
+	11)db.collectionName.find({k:{$gt:v1,$lt:v2}})
+	//查询前n条数据
+	12)db.collectionName.find(n)
+	//分页查询:第n条开始，往后查询m条数据
+	13)db.collectionName.find(n).skip(m)
+5.mongoimport：
+    mongoimport --db test --collection user  --drop --file 被导入文件的路径
+    --db 导入到那个库
+    --collection 导入到那个集合
+    --drop 加上就表示清空原有文档
+    --file 要导入的文件
+6.update
+   //修改collectionName中k1的值v1对应的文档k2的v2,k3的v3；
+   //multi表示匹配到k1:v1的内容全部修改，不加只修改一个
+    1)db.collectionName.update{
+       {k1:v1},
+       {
+       		$set:{k2:v2,k3:v3}
+       },
+       {multi:true}
+    }
+    //去掉set表示替换文档
+    2)db.collectionName.update{
+       {k1:v1},
+       {
+          k2:v2,
+          k3:v3
+       },
+       {multi:true}
+    }
+7.删除
+    db.dropDatabase()//删除当前所在的数据库
+	db.collectionName.drop()//删除集合
+	db.collectionName.remove({k:v})//删除匹配到的所有k为v值的文档
+    db.collectionName.remove({k:v},{justOne:true}) //删除第一个匹配到的所有k为v值的文档
+    db.collectionName.remove({}) //清空集合
+
+
+8.排序
+    db.collectionName.find().sort({k1:1},{k2:-1})
+      按照k1来排序，如果k1的值相同  按照k2的值来排序  1升序  -1降序
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

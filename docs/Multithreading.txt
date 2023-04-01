@@ -1,0 +1,165 @@
+1.获取线程名称和id：		
+		1）方法一：通过Thread的子类来获取：this.getId/this.getName
+		2)方法二：Thread.currentThreed().getId()/Thread.currentThreed().getName()
+2.可以修改线程名称，不能修改线程id；
+		1)通过引用的方式修改，引用.setName("线程名称")
+		2)通过在子类写带参构造方法来修改线程名称，调用super("线程名称")
+3.创建线程的方法：
+	1）继承Thread的子类，子类通过new出一个对象，然后通过调用start()方法进行执行
+	2）实现Runnable接口的类，通过new出一个实现Runnable的对象A，然后再new一个Thread对象B，并且在创建B的时候把A放到B中Thread B = Thread(A),最后B.start();启动
+	3)直接用Runnable创建对象，并且在匿名内部类中重写run方法，然后new Thread(runnable);
+4.线程的基本状态：new初始状态-->start()-->就绪状态<-->运行状态-->结束状态
+				在就绪状态与运行状态之间的状态：
+										    加入sleep()有限期等待状态
+										    加入join()无限期等待状态
+										    加入锁synchronized(共享对象){业务代码}，进入阻塞状态
+				注意：在jdk1.5之后，就绪状态和运行状态统称为Runnable状态
+5.线程休眠 Thread.sleep(1000),表示休眠1秒
+6.线程放弃 Thread.yield()表示线程主动放弃cpu，回到就绪状态
+7.加入线程  例如线程A加入join(),需要在线程A.start()后面写A.join(),然后会停止其它线程，当线程A执行完毕才能执行其它线程
+8.线程优先级：线程对象.setPriority(1~10)设置线程的优先级，总共有10个级别，默认为5，线程级别越高，获取的cpu概率越大 ；使用方法是在对象.start()之前设置
+9.守护线程：
+	1）使用方法对象.setDaemon(true),必须在对象.start()方法之前写；效果是所有主线程执行完毕之后守护线程才会结束
+    2）守护线程总共有两类：一种是前台线程，一种是后台线程。
+    3）如果前台线程都执行完毕，那么后台线程会自动结束。
+    4）垃圾回收期属于守护线程
+10.线程安全问题
+	1）当多线程并发访问临界资源时，如果破坏原子操作，可能会造成数据不一致
+	2）临界资源：共享资源（同一对象），一次仅允许一个线程使用，才可保证其正确性
+	3）原子操作：不可分割的多步操作，被视作一个整体，其顺序和步骤不可打乱或缺省。
+  解决办法：
+  	1）同步代码块：对临界资源对象加锁 synchronized(公共锁对象可以是this){临界代码块}
+  		注意：	每个对象都有一个互斥锁标记，用来分配给线程的
+  				只有拥有对象互斥锁标记的过程，才能进入对该对象加锁的同步代码块。
+  				线程退出同步代码块时，会释放相应的互斥锁标记
+  	2）同步方法：synchronized 返回值类型 方法名称(形参列表){业务代码}  表示锁this
+  	    注意：synchronized static 返回值类型 方法名称(形参列表){业务代码}  表示当前这个类Object.class
+11.同步原则：
+		1）只有在调用同步代码块或者是同步方法时候，才需要对象的锁标记。
+		2）如调用不含同步代码块的方法或者是普通方法，则不需要锁标记，可以直接用
+		3）已知jdk线程安全的方法：StringBuffer\Vecter\Hashtable
+12.死锁：
+		1）总共有俩线程，第一个线程有A锁标记，同时要得到B锁标记才会释放A；第二个线程有B锁标记，同时要得到A锁标记才会释放B，就会产生死锁
+		2）一个线程同时拥有多个锁标记，当线程阻塞，不会释放已有的锁 就会产生死锁。
+13.线程通信：	
+			等待：
+				1) wait()、wait(long timeout)
+				2) 必须在对obj加锁的同步代码块中。在一个线程中，调用obj.wait()时，此线程会释放其拥有的所有锁标记。同时此线程阻塞在obj的等待队列中。释放锁，进入等待队列。需要notify()或者notifyAll()唤醒
+			通过：主要用于唤醒上述的等待线程
+				1)notify()  只能随机唤醒一个等待线程
+				2)notifyAll() 可以唤醒所有等待线程
+14.线程池：
+			1)线程容器，可设定线程分配数量上限
+			2)将预先创建的线程对象存入池中，并重用线程池中的线程对象。
+			3)避免频繁的创建和销毁。
+15.线程池原理：将任务提交给线程池，由线程池分配线程、运行任务，并在当前任务结束后复用线程
+16.创建线程池：常用的线程池接口和类（所在包java.util.concurrent）
+			1）Executor:线程池的顶级接口 execute()
+			2）ExecutorService:线程池接口，
+						2.1)可通过submit（Runnable Task）提交任务代码。shutdown结束(它会等待所有任务完成后结束线程池)，shutdownNow结束(它会立即结束线程池)
+						2.2)ThreadPoolExecutor
+						2.3)ScheduledThreadPoolExecutor
+			3）Executors工厂类：通过此类可以获得一个线程池。这个类里面都是静态方法
+			     3.1）通过newThreadPool(int nThreads) 获取固定数量的线程池。参数：指定线程池中线程的数量。Executors.newFixedThreadPool(int number)
+			     3.2）通过newCachedThreadPool获得动态数量的线程池，如不够则创建新的，没有上限。
+			     3.3)创建单线程池 newSingleThreadExecutor()
+			     3.4）创建调度线程池，调度：类似定时任务，周期内执行 newScheduledThreadPool(int number)
+17.Callable与Runnable的区别:
+		1)Callable接口中的call方法有返回值，Runnable接口中的run方法没有返回值
+		2)Callable接口中的call方法有声明异常，Runnable接口中的run方法没有声明异常
+18.Callable的使用：
+			1）Callable需要转化成可执行的任务(FutureTask task = new FutureTask(Callable))才能放到Thread中运行然后可以通过task.get()获取结果，Runnable可以直接放到Thread中运行
+			2）Callable也可以直接放到线程池(submit(Callable callable))中来运行，返回的参数可以通过Future来接收
+19.Future：表示将要完成任务的结果
+		1）Executors.submit()返回的结果就是call()的返回值
+		2）V get()以阻塞的形式等待Future中的异步处理结果（call()的返回值）
+20.同步和异步？
+	同步：形容一次方法的调用，同步一旦开始，调用者必须“等待”该方法返回，才能继续
+		注意：单条执行路径
+	异步：形容一次方法的调用，异步一旦开始，像是一次消息传递，调用者告知之后立刻返回。二者竞争时间片，并发执行。
+		注意：多条执行路径
+21.Lock接口
+	1）jdk5加入，与synchronized比较，显示定义，结构更灵活
+	2）提供更多实用性的方法，功能更强大、性能更优越。
+	3）常用方法：	
+			void lock() //获取锁，如锁被占用，则等待
+			boolean tryLock() //尝试获取锁（成功返回true，失败返回false，不阻塞）
+			void unlock() //释放锁
+22.重入锁(互斥锁)
+		1）ReentrantLock	:Lock接口的实现类，与synchronized一样具有互斥锁功能（男女筷子的分配）
+23.读写锁
+		1）ReentrantReadWriteLock:
+			一种支持一写多读的同步锁，读写分离，可分别分配读锁、写锁
+			支持多次分配读锁，使多个读操作可以并发执行。
+		2）读锁：读写锁对象点readLock()来获取
+		3）写锁：读写锁对象点writeLock()来获取
+  注意：
+  		写-写：阻塞、互斥
+       	读-写：互斥，读阻塞写、写阻塞读
+        读-读：不互斥、不阻塞
+     在读操作远远高于写操作的环境中，可在保障线程安全的情况下，提高效率。    
+24.使用多线程操作线程不安全集合
+ 	1）放入Collections中的线程安全方法(带有synchronized的方法)中转成线程安全的集合
+ 	2)CopyOnWriteArrayList创建安全集合
+25.CopyOnWriteArrayList
+	1）线程安全的ArrayList,加强版的读写分离。
+	2）写有锁，读无锁，读写之间不阻塞，优于读写锁
+	3）写入时，先copy一个容器副本、再添加新元素，最后替换引用。
+	4）使用方式与ArrayList无异。
+26.CopyOnWriteArraySet
+    1)线程安全的Set,底层使用CopyOnWriteArrayList
+    2)唯一不同在于，使用addIfAbsent()添加元素，会遍历数组，如存在元素，则不添加（扔掉副本）
+27.队列Queue
+	1）Collection的子接口，表示队列先进先出
+	2）常用的方法：	
+		 2.1）抛出异常：
+		 		boolean add(E e) 顺序添加一个元素(上限后会抛出异常)
+		 		E remove() 获得第一个元素并移除（如果队列没有元素时，则抛异常）
+		 		E element() 获得第一个元素但不移除（如果队列没有元素则抛异常）
+		 2.2）返回特殊值：推荐使用
+		 		boolean offer(E e) 顺序添加一个元素（上限后会返回false）
+		 		E poll() 获得第一个元素并移除（如果队列没有元素时，则返回null）
+		 		E peek() 获得第一个元素但不移除（如果队列没有元素则返回null）
+28.ConcurrentLinkedQueue
+   1)线程安全、可高效读写的队列，高并发下性能最好的队列。
+   2)无锁、CAS比较交换算法，修改的方法中有三个核心参数（V，E，N）
+   3)V:要更新的变量，E：预期值 N:新值
+   4)只有当V==E时，V=N;否则表示已经被更新过，则取消当前操作。
+29.BlockingQueue接口（阻塞队列）
+	1)Queue的子接口，阻塞的队列，增加了两个线程状态为无限期等待的方法。
+	2)方法：
+		void put(E e)将指定的元素插入到此队列中，如果没有存储空间，则等待
+		E  take() 获取并移除此队列头部元素，如果没有可用元素，则等待
+	3)可用于解决生产者，消费者的问题。
+	4)ArrayBlokingQueue:数组结构实现，有界队列。（手工固定上限）
+	5)LinkedBlockingQueue:链表结构实现，有界队列。(默认上限Integer.MAX_VALUE)可以手动设置上限
+30.ConcurrentHashMap
+	1)初始容量为16段（Segment）,使用分段锁设计
+	2)不对整个Map加锁，而是为每个Segement加锁
+	3)当多个对象存入同一个段（Segment）时，才需要互斥
+	4)最理想的状况为16个对象分别存入16个Segment，并行数量16
+	5）使用方式与HashMap无异
+31.总结
+   1)ExcutorService线程池接口、Executors工厂
+   2)Callable线程任务、Future异步返回值
+   3)Lock、ReentranLock重入锁、ReentrantReadWriteLock读写锁
+   4)CopyOnWriteArrayList线程安全的ArrayList
+   5)CopyOnWriteArraySet线程安全的ArraySet
+   6)ConcurrentLinkedQueue线程安全的Queue
+   7)ArrayBlokingQueue线程安全的阻塞Queue。（生产者、消费者）
+   8)LinkedBlockingQueue线程安全的阻塞Queue。（生产者、消费者）
+   8)ConcurrentHashMap线程安全的HashMap
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+

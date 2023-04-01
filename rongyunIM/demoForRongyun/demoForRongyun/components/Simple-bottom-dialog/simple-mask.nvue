@@ -1,0 +1,36 @@
+<template>
+    <view class="simple-mask" @click="_click" :style="{'background-color':'rgba(0,0,0,'+ rgba +')'}"></view>
+</template>
+
+<script>
+
+    export default {
+        props: {
+            rgba: {
+                type: [String, Number],
+                default: '0.2'
+            }
+        },
+        computed: {
+            newRgba(){
+                return this.rgba + '';
+            }
+        },
+        methods: {
+            _click() {
+                this.$emit("click");
+            }
+        }
+    }
+</script>
+
+<style>
+    .simple-mask{
+        position: fixed;
+        left: 0rpx;
+        right: 0rpx;
+        top: 0rpx;
+        bottom: 0rpx;
+        background-color:rgba(0,0,0,0.2);
+    }
+</style>

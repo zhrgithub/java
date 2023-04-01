@@ -1,0 +1,21 @@
+1.读取节点
+   ls命令：列出zookeeper指定节点下的所有子节点，只能查看指定节点下的第一级的所有子节点；
+   get命令：可以获取zookeeper指定节点的数据内容和属性信息。
+   
+   ls path [watch]
+   get path [watch]
+   ls2 path [watch]
+
+2.更新节点
+  set path data [version]
+  data就是更新的新内容，version表示数据版本。
+3.删除节点
+  delete path [version]
+  若删除的节点存在子节点，那么删除失败，需要删除它的子节点后才能删除成功。
+
+
+
+
+
+
+

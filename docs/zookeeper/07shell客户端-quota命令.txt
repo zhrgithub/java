@@ -1,0 +1,31 @@
+1.quota
+    1.1 创建quota
+        create path data  #path表示节点，data表示内容
+    1.2 对节点进行限制
+        setquota -n|-b val path 对节点增加限制。
+	    n:表示子节点的最大个数
+	    b:表示数据值的最大长度
+	    val:子节点最大个数或数据值的最大长度
+	    path:节点路径
+	    注意：quota是一种非强制性的限制，即创建的quota长度或者个数超过最大长度或最大个数也可以保存
+	1.3 列出指定节点的quota
+        listquota path
+        注意：count是子节点个数（包括当前节点），bytys表示数据内容长度，bytys=-1表示没有限制
+    1.4 删除quota
+        delquota [-n|-b] path
+2.其它命令
+   2.1 history： 列出命令历史
+   2.2 redo: 该命令可以重新执行指定命令编号的历史命令，命令编号可以通过history查看
+        redo number  #number是history列表中的命令编号
+
+
+
+
+
+
+
+
+
+
+
+
