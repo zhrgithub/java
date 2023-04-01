@@ -43,9 +43,9 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>repository.org.springframework</groupId>
+            <groupId>org.springframework</groupId>
             <artifactId>spring-aop</artifactId>
-            <version>5.3.16</version>
+            <version>4.3.6.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.aspectj</groupId>
