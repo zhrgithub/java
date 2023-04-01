@@ -1,0 +1,10 @@
+# ????
+spring:
+  application:
+    name: websocketOfNetty
+# Netty Server ??
+netty:
+  port: 8088
+# web???????
+server:
+  port: 8080

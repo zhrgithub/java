@@ -46,7 +46,12 @@
 
             <!--获取消息,发送消息-->
             var msg = document.getElementById("msgContent");
-            CHAT.socket.send(msg.value);
+            var obj = {
+                fromUser:"1",
+                toUser:"2",
+                content:msg.value
+            }
+            CHAT.socket.send(JSON.stringify(obj));
         }
     };
 
