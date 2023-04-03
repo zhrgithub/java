@@ -21,7 +21,7 @@
             <!--判断浏览器是否支持 websocket-->
             if (window.WebSocket) {
                 <!--连接服务器websocket IP+端口号 ／ws是服务器WebSocketServerProtocolHandler添加的-->
-                CHAT.socket = new WebSocket("ws://127.0.0.1:8088/ws");
+                CHAT.socket = new WebSocket("ws://127.0.0.1:8088/ws?userId=2");
                 CHAT.socket.onopen = function() {
                     console.log("连接建立成功...");
                 },
@@ -47,8 +47,8 @@
             <!--获取消息,发送消息-->
             var msg = document.getElementById("msgContent");
             var obj = {
-                fromUser:"1",
-                toUser:"2",
+                fromUser:"2",
+                toUser:"1",
                 content:msg.value
             }
             CHAT.socket.send(JSON.stringify(obj));

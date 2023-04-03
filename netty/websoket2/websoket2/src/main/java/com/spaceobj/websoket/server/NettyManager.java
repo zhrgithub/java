@@ -90,7 +90,7 @@ public class NettyManager {
                 logger.error("channelId={}不在线", channel.id());
                 return;
               }
-              channel.writeAndFlush(new TextWebSocketFrame("群发消息：" + message.getContent()));
+              channel.writeAndFlush(new TextWebSocketFrame(message.getContent()));
             });
   }
   //根据某个群聊ID来群发
